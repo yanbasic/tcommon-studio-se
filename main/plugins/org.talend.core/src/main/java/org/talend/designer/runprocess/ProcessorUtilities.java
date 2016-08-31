@@ -515,16 +515,16 @@ public class ProcessorUtilities {
 
         // If the auto-build is activated in the workspace preferences, we reactivate the feature since it's been
         // deactivated at the beginning of the build time.
-        if (isAutoBuild) {
-            IWorkspace workspace = ResourcesPlugin.getWorkspace();
-            IWorkspaceDescription desc = workspace.getDescription();
-            desc.setAutoBuilding(true);
-            try {
-                workspace.setDescription(desc);
-            } catch (CoreException e) {
-                CommonExceptionHandler.warn(e.getMessage());
-            }
-        }
+        // if (isAutoBuild) {
+        // IWorkspace workspace = ResourcesPlugin.getWorkspace();
+        // IWorkspaceDescription desc = workspace.getDescription();
+        // desc.setAutoBuilding(true);
+        // try {
+        // workspace.setDescription(desc);
+        // } catch (CoreException e) {
+        // CommonExceptionHandler.warn(e.getMessage());
+        // }
+        // }
 
         return processor;
     }
