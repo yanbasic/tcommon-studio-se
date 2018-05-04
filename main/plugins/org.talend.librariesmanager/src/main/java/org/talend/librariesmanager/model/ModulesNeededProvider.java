@@ -703,15 +703,15 @@ public class ModulesNeededProvider {
             EList imports = routine.getImports();
             for (Object o : imports) {
                 IMPORTType currentImport = (IMPORTType) o;
-                if (currentImport.isREQUIRED()) {
 
-                    // FIXME SML i18n
-                    ModuleNeeded toAdd = new ModuleNeeded(context, currentImport.getMODULE(), currentImport.getMESSAGE(),
-                            currentImport.isREQUIRED());
-                    toAdd.setMavenUri(currentImport.getMVN());
-                    // toAdd.setStatus(ELibraryInstallStatus.INSTALLED);
-                    importNeedsList.add(toAdd);
+                boolean isRequired = currentImport.isREQUIRED();
+                ModuleNeeded toAdd = new ModuleNeeded(context, currentImport.getMODULE(), currentImport.getMESSAGE(), isRequired);
+                toAdd.setMavenUri(currentImport.getMVN());
+                // TESB-22034 A Bean Library can not be set to optional
+                if (!isRequired && "BeanItem".equals(routine.eClass().getName())) {
+                    toAdd.setBundleName("osgi-exclude");
                 }
+                importNeedsList.add(toAdd);
             }
         }
         return importNeedsList;
