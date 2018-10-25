@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
@@ -148,16 +149,16 @@ public class CreateMavenStandardJobOSGiPom extends CreateMavenJobPom {
         model.addProperty("talend.job.finalName", "${talend.job.name}-bundle-${project.version}");
         if (isServiceOperation) {
             model.addProperty("cloud.publisher.skip", "true");
-            // Build build = model.getBuild();
-            // if(build != null) {
-            // List<Plugin> plugins = build.getPlugins();
-            // for(Plugin p : plugins) {
-            // if(p.getArtifactId().equals("maven-deploy-plugin")) {
-            // build.removePlugin(p);
-            // break;
-            // }
-            // }
-            // }
+            Build build = model.getBuild();
+            if (build != null) {
+                List<Plugin> plugins = build.getPlugins();
+                for (Plugin p : plugins) {
+                    if (p.getArtifactId().equals("maven-deploy-plugin")) {
+                        build.removePlugin(p);
+                        break;
+                    }
+                }
+            }
         }
 
         return model;
