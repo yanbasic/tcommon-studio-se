@@ -133,16 +133,6 @@ public class CreateMavenStandardJobOSGiPom extends CreateMavenJobPom {
             if (isServiceOperation && profile.getId().equals("deploy-nexus")) {
                 model.removeProfile(profile);
                 break;
-                // BuildBase build = profile.getBuild();
-                // if (build != null) {
-                // List<Plugin> plugins = profile.getBuild().getPlugins();
-                // for (Plugin plugin : plugins) {
-                // if (plugin.getArtifactId().equals("maven-deploy-plugin")) {
-                // build.removePlugin(plugin);
-                // break;
-                // }
-                // }
-                // }
             }
         }
         model.setName(model.getName() + " Bundle");
